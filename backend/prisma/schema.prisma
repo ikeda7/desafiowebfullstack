@@ -28,7 +28,7 @@ model Setor {
 }
 
 model Empresa_Setor {
-  empresa Empresa @relation(fields: [empresaId], references: [id])
+  empresa Empresa @relation(fields: [empresaId], references: [id], onDelete: Cascade)
   empresaId Int
   setor Setor @relation(fields: [setorId], references: [id])
   setorId Int
