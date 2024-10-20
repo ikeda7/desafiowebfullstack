@@ -52,4 +52,14 @@ export default class SetorController {
             res.status(500).json({ message: error.message });
         }
     }
+
+    filter = async (req, res) => {
+        try {
+            const { filter } = req.body;
+            const setores = await setorModel.filter(filter);
+            res.status(200).json(setores);
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    }
 }

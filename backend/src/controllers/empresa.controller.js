@@ -53,4 +53,14 @@ export default class EmpresaController {
             res.status(500).json({ message: error.message });
         }
     }
+
+    filter = async (req, res) => {
+        try {
+            const { filter } = req.body;
+            const empresas = await empresaModel.filter(filter);
+            res.status(200).json(empresas);
+        } catch (error) {
+            res.status(500).json({ message: error.message });
+        }
+    }
 }

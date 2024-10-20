@@ -83,7 +83,38 @@ export default class EmpresaModel {
                 }
             });
         } catch (error) {
+            console.log(error);
             throw new Error('Erro ao deletar empresa');
+        }
+    }
+
+    filter = async (filter) => {
+        try {
+            return await prisma.empresa.findMany({
+                include: { empresa_setor: { include: { setor:true } }},
+                
+                where: {
+                    OR: [
+                        {
+                            razao_social: {
+                                contains: filter
+                            },
+                        },
+                        {
+                            nome_fantasia: {
+                                contains: filter
+                            },
+                        },
+                        {
+                            cnpj: {
+                                contains: filter
+                            },
+                        }
+                    ]
+                }
+            });
+        } catch (error) {
+            throw new Error('Erro ao filtrar empresas');
         }
     }
 }

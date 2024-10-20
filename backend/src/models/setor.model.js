@@ -57,4 +57,18 @@ export default class SetorModel {
             throw new Error('Erro ao deletar setor');
         }
     }
+
+    filter = async (filter) => {
+        try {
+            return await prisma.setor.findMany({
+                where: {
+                    descricao: {
+                        contains: filter
+                    }
+                }
+            });
+        } catch (error) {
+            throw new Error('Erro ao filtrar setores');
+        }
+    }
 }
