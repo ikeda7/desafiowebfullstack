@@ -4,63 +4,86 @@ const prisma = new PrismaClient();
 
 export default class EmpresaModel {
     create = async (empresa) => {
-        return await prisma.empresa.create({
-            data: empresa
-        });
+        try {
+            const { razao_social, nome_fantasia, cnpj, setores } = empresa;
+            
+            return await prisma.empresa.create({
+                data: {
+                    razao_social: razao_social,
+                    nome_fantasia: nome_fantasia,
+                    cnpj: cnpj,
+                    empresa_setor: {
+                        create: setores.map((setorId) => ({
+                          setor: { connect: { id: setorId } },
+                        })),
+                    },
+                }
+            });
+        } catch (error) {
+            throw new Error('Erro ao criar empresa');
+        }
     }
 
+
     getAll = async () => {
-        return await prisma.empresa.findMany();
+        try {
+            return await prisma.empresa.findMany({ include: { empresa_setor: { include: { setor:true } }}});
+        }catch (error) {
+            throw new Error('Erro ao buscar empresas');
+        }
     }
 
     getById = async (id) => {
-        const empresa = await prisma.empresa.findUnique({
-            where: {
-                id: id
-            }
-        });
-
-        if (!empresa) {
-            throw new Error('Empresa não encontrada');
+        
+        try {
+            return await prisma.empresa.findUnique({
+                include: { empresa_setor: { include: { setor:true } }},
+    
+                where: {
+                    id: id
+                }
+            });
+        } catch (error) { 
+            throw new Error('Erro ao buscar empresa');
         }
-
-        return empresa;
     }
 
-    update = async (id, empresa) => {
-        const empresadb = await this.verifyEmpresa(id);
-        
-        if (!empresadb) {
-            throw new Error('Empresa não encontrada');
-        }
+    update = async (id, empresa) => {    
+        try {
+            const { razao_social, nome_fantasia, cnpj, setoresConectar, setoresDesconectar } = empresa;
 
-        return await prisma.empresa.update({
-            where: {
-                id: id
-            },
-            data: empresa
-        });
+            return await prisma.empresa.update({
+                where: {
+                    id: id
+                },
+                data: {
+                    razao_social: razao_social,
+                    nome_fantasia: nome_fantasia,
+                    cnpj: cnpj,
+                    empresa_setor: {
+                        connect: setoresConectar.map((setorId) => ({
+                          id: setorId
+                        })),
+                        disconnect: setoresDesconectar.map((setorId) => ({
+                          id: setorId
+                        }))
+                    }
+                }
+            });
+        }catch (error) {
+            throw new Error('Erro ao atualizar empresa');
+        }
     }
 
     delete = async (id) => {
-        const empresa = await this.verifyEmpresa(id);
-        
-        if (!empresa) {
-            throw new Error('Empresa não encontrada');
+        try {
+            return await prisma.empresa.delete({
+                where: {
+                    id: id
+                }
+            });
+        } catch (error) {
+            throw new Error('Erro ao deletar empresa');
         }
-
-        return await prisma.empresa.delete({
-            where: {
-                id: id
-            }
-        });
-    }
-
-    verifyEmpresa = async (id) => {
-        return await prisma.empresa.findUnique({
-            where: {
-                id: id
-            }
-        });
     }
 }
