@@ -1,1 +1,36 @@
-<p>list-empresa works!</p>
+<mat-toolbar color="primary">
+    <span>Lista de Empresas</span>
+  </mat-toolbar>
+  
+  <div style="padding: 16px;">
+    <mat-form-field appearance="fill">
+      <mat-label>Filtrar Empresas</mat-label>
+      <input matInput [(ngModel)]="filtro" (input)="applyFilter()" placeholder="Digite para filtrar">
+    </mat-form-field>
+  </div>
+  
+  <div class="empresa-list-container">
+    <mat-card *ngFor="let empresa of filteredEmpresas" class="empresa-card">
+      <mat-card-header>
+        <mat-card-title>{{ empresa.razao_social }}</mat-card-title>
+        <mat-card-subtitle>{{ empresa.nome_fantasia }}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p><strong>CNPJ:</strong> {{ empresa.cnpj }}</p>
+        <p><strong>Setores:</strong>
+          <span *ngFor="let setor of empresa.empresa_setor; let last = last">
+            {{ setor.setor.descricao }}<span *ngIf="!last">, </span>
+          </span>
+          <span *ngIf="empresa.empresa_setor?.length === 0">Nenhum setor associado</span>
+        </p>
+  
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button color="accent" [routerLink]="[empresa.id, 'edit']">Editar</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+  
+  <a mat-fab color="primary" [routerLink]="['new']" style="position: fixed; bottom: 16px; right: 16px;">
+    <mat-icon>add</mat-icon>
+  </a>

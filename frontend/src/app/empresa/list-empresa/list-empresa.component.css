@@ -1,0 +1,16 @@
+.empresa-list-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 16px;
+  }
+  
+  .empresa-card {
+    width: 300px;
+    margin: 16px;
+  }
+  
+  mat-list-item {
+    padding-left: 0; /* Ajusta o padding */
+  }
+  

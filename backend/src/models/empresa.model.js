@@ -20,6 +20,7 @@ export default class EmpresaModel {
                 }
             });
         } catch (error) {
+            console.log(error)
             throw new Error('Erro ao criar empresa');
         }
     }
