@@ -1,34 +1,47 @@
-form {
-    display: flex;
-    flex-direction: column;
-    width: 400px;
-    margin: auto;
-  }
-  
-  div {
-    margin-bottom: 10px;
-  }
-  
-  label {
-    margin-bottom: 5px;
-  }
-  
-  input {
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  button {
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 4px;
-  }
-  
-  button:hover {
-    background-color: #0056b3;
-  }
-  
+:host {
+  display: block;
+  background-color: #1e1e1e; /* Cor de fundo desejada */
+  color: #ffffff; /* Cor do texto para contraste */
+  height: 100vh; /* Garante que o fundo cubra toda a altura da janela */
+  margin: 0;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.form-card {
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: #2c2c2c;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.form-container {
+  padding: 20px;
+}
+
+.form-field {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.mat-form-field-appearance-fill .mat-form-field-flex {
+  background-color: #3c3c3c;
+}
+
+.mat-form-field-appearance-fill .mat-form-field-label {
+  color: #bbb;
+}
+
+.mat-input-element {
+  color: #fff;
+}
+
+.mat-error {
+  color: #ff5252;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+}

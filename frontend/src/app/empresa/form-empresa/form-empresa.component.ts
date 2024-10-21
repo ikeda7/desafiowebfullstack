@@ -17,6 +17,7 @@ export class FormEmpresaComponent implements OnInit {
   currentAction?: string;
   formulario: FormGroup;
   empresaId: number = -1;
+  router: any;
 
   constructor(private route: ActivatedRoute, private formBuilder: FormBuilder, private empresaService: EmpresaService){
     this.formulario = this.formBuilder.group({
@@ -90,5 +91,9 @@ export class FormEmpresaComponent implements OnInit {
         }
       );
     }
+  }
+
+  onCancel(): void {
+    this.router.navigate(['/empresa']);
   }
 }

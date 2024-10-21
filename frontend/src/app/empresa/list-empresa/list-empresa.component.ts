@@ -31,11 +31,17 @@ export class ListEmpresaComponent implements OnInit {
   }
 
   applyFilter(): void {
-    const filter = {filter: this.filtro}
+    const filter = {filter: this.filtro || ''}
     this.empresaService.filter(filter).subscribe(data => {
       console.log(data);
       this.empresas = data;
       this.filteredEmpresas = data; // Inicializa a lista filtrada
+    });
+  }
+
+  delete(id: number): void {
+    this.empresaService.delete(id).subscribe(() => {
+      this.filteredEmpresas = this.filteredEmpresas.filter(empresa => (Number(empresa.id) !== id));
     });
   }
 }

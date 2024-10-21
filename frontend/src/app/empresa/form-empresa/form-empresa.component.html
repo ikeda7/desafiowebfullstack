@@ -1,39 +1,48 @@
-<form [formGroup]="formulario" (ngSubmit)="onSubmit()">
-    <mat-form-field appearance="fill">
-      <mat-label>Razão Social</mat-label>
-      <input matInput formControlName="razao_social" required>
-      <mat-error *ngIf="formulario.get('razao_social')?.hasError('required')">
-        A razão social é obrigatória.
-      </mat-error>
-    </mat-form-field>
-  
-    <mat-form-field appearance="fill">
-      <mat-label>Nome Fantasia</mat-label>
-      <input matInput formControlName="nome_fantasia" required>
-      <mat-error *ngIf="formulario.get('nome_fantasia')?.hasError('required')">
-        O nome fantasia é obrigatório.
-      </mat-error>
-    </mat-form-field>
-  
-    <mat-form-field appearance="fill">
-      <mat-label>CNPJ</mat-label>
-      <input matInput formControlName="cnpj" required>
-      <mat-error *ngIf="formulario.get('cnpj')?.hasError('required')">
-        O CNPJ é obrigatório.
-      </mat-error>
-      <mat-error *ngIf="formulario.get('cnpj')?.hasError('pattern')">
-        O CNPJ deve estar no formato XX.XXX.XXX/XXXX-XX.
-      </mat-error>
-    </mat-form-field>
+<mat-card class="form-card">
+  <mat-card-header>
+    <mat-card-title>Formulário de Empresa</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form [formGroup]="formulario" (ngSubmit)="onSubmit()" class="form-container">
+      <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Razão Social</mat-label>
+        <input matInput formControlName="razao_social" required>
+        <mat-error *ngIf="formulario.get('razao_social')?.hasError('required')">
+          A razão social é obrigatória.
+        </mat-error>
+      </mat-form-field>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Setores</mat-label>
-      <input matInput formControlName="setores" required>
-      <mat-error *ngIf="formulario.get('setores')?.hasError('required')">
-        O Setores é obrigatório.
-      </mat-error>
-    </mat-form-field>
-  
-    <button mat-raised-button color="primary" type="submit">Enviar</button>
-  </form>
-  
+      <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Nome Fantasia</mat-label>
+        <input matInput formControlName="nome_fantasia" required>
+        <mat-error *ngIf="formulario.get('nome_fantasia')?.hasError('required')">
+          O nome fantasia é obrigatório.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="form-field">
+        <mat-label>CNPJ</mat-label>
+        <input matInput formControlName="cnpj" required>
+        <mat-error *ngIf="formulario.get('cnpj')?.hasError('required')">
+          O CNPJ é obrigatório.
+        </mat-error>
+        <mat-error *ngIf="formulario.get('cnpj')?.hasError('pattern')">
+          O CNPJ deve estar no formato XX.XXX.XXX/XXXX-XX.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Setores</mat-label>
+        <input matInput formControlName="setores" required>
+        <mat-error *ngIf="formulario.get('setores')?.hasError('required')">
+          O setor é obrigatório.
+        </mat-error>
+      </mat-form-field>
+
+      <div class="form-actions">
+        <button mat-raised-button color="primary" type="submit">Salvar</button>
+        <button mat-raised-button color="warn" type="button" (click)="onCancel()">Voltar</button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>
